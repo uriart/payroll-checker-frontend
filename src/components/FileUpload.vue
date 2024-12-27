@@ -12,6 +12,17 @@
 
 <script>
 import axios from 'axios';
+import { alertController } from '@ionic/vue';
+
+const presentAlert = async () => {
+  const alert = await alertController.create({
+    header: 'Error leyendo la nómina',
+    message: 'Revisa los datos o envía una nómina correcta.',
+    buttons: ['Aceptar'],
+  });
+
+  await alert.present();
+};
 
 export default {
   data() {
@@ -47,7 +58,7 @@ export default {
         this.jsonResponse = JSON.stringify(response.data, null, 2);
       } catch (error) {
         console.error('Error uploading file:', error);
-        alert('Error uploading file.');
+        presentAlert();
       }
     },
   },
