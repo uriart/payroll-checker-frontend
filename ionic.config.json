@@ -1,0 +1,7 @@
+{
+  "name": "payroll-checker-frontend/",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}

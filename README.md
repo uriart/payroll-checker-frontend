@@ -1,1 +1,0 @@
-# payroll-checker-frontend
