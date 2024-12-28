@@ -1,14 +1,26 @@
 <template>
-  <div>
-    <h2>Upload PDF and Get Payroll Data</h2>
-    <input type="file" @change="onFileChange" accept=".pdf" />
-    <button @click="uploadFile" :disabled="!file">Upload PDF</button>
-    <div v-if="jsonResponse">
-      <h3>Response:</h3>
-      <pre>{{ jsonResponse }}</pre>
-    </div>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Upload your Payroll PDF</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input type="file" @change="onFileChange" accept=".pdf" />
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="primary" @click="uploadFile">
+    <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+    Upload PDF
+  </ion-button>
+
+  <ion-textarea
+    readonly
+    placeholder="Server response will appear here..."
+    :value="jsonResponse"
+    rows="6">
+  </ion-textarea>
 </template>
+
 
 <script>
 import axios from 'axios';
