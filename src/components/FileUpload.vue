@@ -1,7 +1,7 @@
 <template>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Upload your Payroll PDF</ion-card-title>
+      <ion-card-title>Carga tu nómina en pdf</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-input type="file" @change="onFileChange" accept=".pdf" />
@@ -10,7 +10,7 @@
 
   <ion-button expand="block" color="primary" @click="uploadFile">
     <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
-    Upload PDF
+    Cargar PDF
   </ion-button>
 
   <ion-textarea
@@ -25,6 +25,7 @@
 <script>
 import axios from 'axios';
 import { alertController } from '@ionic/vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 
 const presentAlert = async () => {
   const alert = await alertController.create({
@@ -37,6 +38,13 @@ const presentAlert = async () => {
 };
 
 export default {
+  setup() {
+    const { getAccessTokenSilently } = useAuth0();
+
+    return {
+      getAccessTokenSilently,
+    };
+  },
   data() {
     return {
       file: null,
@@ -46,10 +54,10 @@ export default {
   methods: {
     onFileChange(event) {
       const file = event.target.files[0];
-      if (file && file.type === 'application/pdf') {
+      if (file && (file.type === 'application/pdf' || file.type === "image/jpeg")) {
         this.file = file;
       } else {
-        alert('Please select a valid PDF file.');
+        alert('Please select a valid pdf or jpeg file.');
         this.file = null;
       }
     },
@@ -57,13 +65,12 @@ export default {
       const formData = new FormData();
       formData.append('file', this.file);
 
-      console.log("Uploading file")
-
-
       try {
-        const response = await axios.post('http://localhost:8080/payroll/upload', formData, {
+        const token = await this.getAccessTokenSilently();
+        const response = await axios.post(import.meta.env.VITE_BACKEND_BASE_URL + '/payroll/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`,
           },
         });
         console.log(response.data)

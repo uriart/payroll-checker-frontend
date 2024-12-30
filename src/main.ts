@@ -34,9 +34,23 @@ import '@ionic/vue/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/* Auth0 sdk */
+import { createAuth0 } from '@auth0/auth0-vue';
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
+
+app.use(
+  createAuth0({
+    domain: import.meta.env.VITE_AUTH0_DOMAIN,
+    clientId: import.meta.env.VITE_AUTH0_CLIENT_ID,
+    authorizationParams: {
+      redirect_uri: window.location.origin,
+      audience: import.meta.env.VITE_API_ID,
+    }
+  })
+);
 
 router.isReady().then(() => {
   app.mount('#app');

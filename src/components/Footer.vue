@@ -14,6 +14,12 @@
                     color="primary" 
                     @click="goToWarehouse">
                 </ion-icon>
+                <ion-icon 
+                    :icon="logOut" 
+                    size="large" 
+                    color="primary" 
+                    @click="logoutAuth0">
+                </ion-icon>
             </div>
         </ion-toolbar>
     </ion-footer>
@@ -21,14 +27,16 @@
 
 <script lang="ts">
   import { IonFooter, IonToolbar, IonIcon } from '@ionic/vue';
-  import { cloudUpload, list } from 'ionicons/icons';
+  import { cloudUpload, list, logOut } from 'ionicons/icons';
   import { defineComponent } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useAuth0 } from '@auth0/auth0-vue';
 
   export default defineComponent({
     components: { IonFooter, IonToolbar, IonIcon },
     setup() {
         const router = useRouter();
+        const { logout } = useAuth0();
 
         const goToFileUpload = () => {
         router.push({ name: 'FileUpload' });
@@ -37,7 +45,11 @@
         const goToWarehouse = () => {
         router.push({ name: 'Warehouse' });
         };
-      return { cloudUpload, list, goToFileUpload, goToWarehouse };
+
+        const logoutAuth0 = () => {
+            logout({ logoutParams: { returnTo: window.location.origin } });
+        };
+      return { cloudUpload, list, logOut, logoutAuth0, goToFileUpload, goToWarehouse };
     },
   });
 

@@ -1,21 +1,23 @@
 <template>
-  <div class="home">
+  <div class="home" v-if="isAuthenticated">
     <div class="main-container">
       <router-view />
     </div>
-    <Footer />
   </div>
 </template>
 
 <script> 
-import FileUpload from '../components/FileUpload.vue';
 import Footer from '../components/Footer.vue';
+import { useAuth0 } from '@auth0/auth0-vue';
 
 export default {
   name: 'Home',
   components: {
-    FileUpload,
     Footer
+  },
+  setup() {
+    const { isAuthenticated } = useAuth0();
+    return { isAuthenticated };
   },
 };
 </script>
@@ -26,7 +28,7 @@ export default {
   display: flex; /* Flexbox para alinear los elementos */
   flex-direction: column; /* Apila los hijos verticalmente */
   justify-content: space-between; /* Asegura que el footer se mantenga al final */
-  height: 100vh; /* Ocupa toda la altura de la ventana */
+  /*height: 100vh; /* Ocupa toda la altura de la ventana */
   margin: 0;
   padding: 0;
 }
