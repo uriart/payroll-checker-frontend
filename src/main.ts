@@ -29,13 +29,18 @@ import '@ionic/vue/css/display.css';
 
 /* @import '@ionic/vue/css/palettes/dark.always.css'; */
 /* @import '@ionic/vue/css/palettes/dark.class.css'; */
-import '@ionic/vue/css/palettes/dark.system.css';
+/* import '@ionic/vue/css/palettes/dark.system.css'; */
 
 /* Theme variables */
 import './theme/variables.css';
 
 /* Auth0 sdk */
 import { createAuth0 } from '@auth0/auth0-vue';
+
+/* PWA Elements Library - Ionic Elements for Progressive Web Apps*/
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+defineCustomElements(window);
 
 const app = createApp(App)
   .use(IonicVue)

@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue'
 import FileUpload from '../components/FileUpload.vue'
 import Warehouse from '../components/Warehouse.vue'
+import ConfirmDataForm from '../components/ConfirmDataForm.vue'
 import { useAuth0 } from '@auth0/auth0-vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -20,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'warehouse',
         name: 'Warehouse',
         component: Warehouse,
-      },
+      }
     ],
   },
 ];
